@@ -1,0 +1,309 @@
+@let a = l.c().app;
+<div class="ph-frame">
+  <div class="ph-screen">
+    <div class="ph-status">
+      <span class="ph-time">9:41</span>
+      <span class="ph-island"></span>
+      <span class="ph-signal">
+        <i></i><i></i><i></i><i></i>
+        <app-icon name="wifi" size="1em" [stroke]="2.2" />
+        <b class="ph-batt"><b></b></b>
+      </span>
+    </div>
+
+    @switch (screen()) {
+      <!-- ============ INICIO ============ -->
+      @case ('home') {
+        <div class="app">
+          <div class="app-body">
+            <div class="row between mt1">
+              <div class="row gap6">
+                <span class="avatar">A</span>
+                <span class="t-strong">{{ a.hi }}</span>
+              </div>
+              <app-icon name="bell" size="1.5em" />
+            </div>
+            <div class="balance">
+              <span class="t-mute">{{ a.totalBalance }}</span>
+              <span class="t-xl">{{ m(3630000, 'COP') }}</span>
+            </div>
+            <div class="actions">
+              <button type="button" class="act" (click)="go('rule')"><span class="act-ic act-primary"><app-icon name="send" size="1.45em" /></span>{{ a.actions[0] }}</button>
+              <button type="button" class="act" (click)="go('pockets')"><span class="act-ic"><app-icon name="wallet" size="1.45em" /></span>{{ a.actions[1] }}</button>
+              <button type="button" class="act" (click)="go('scheduled')"><span class="act-ic"><app-icon name="shield" size="1.45em" /></span>{{ a.actions[2] }}</button>
+            </div>
+            <div class="row between mt2 mb1">
+              <span class="t-strong">{{ a.yourPockets }}</span>
+              <button type="button" class="t-link" (click)="go('pockets')">{{ a.seeAll }}</button>
+            </div>
+            <div class="list">
+              <div class="item">
+                <span class="ic-box" data-tone="blue"><app-icon name="house" size="1.3em" /></span>
+                <span class="grow"><span class="t-strong">{{ a.rent }}</span><span class="t-mute sm">{{ a.onlyLandlord }}</span></span>
+                <span class="t-num">{{ m(1200000, 'COP') }}</span>
+              </div>
+              <div class="item">
+                <span class="ic-box" data-tone="orange"><app-icon name="cart" size="1.3em" /></span>
+                <span class="grow"><span class="t-strong">{{ a.groceries }}</span><span class="t-mute sm">{{ a.onlySupermarkets }}</span></span>
+                <span class="t-num">{{ m(600000, 'COP') }}</span>
+              </div>
+              <div class="item" (click)="go('goal')">
+                <span class="ic-box" data-tone="pink"><app-icon name="lock" size="1.3em" /></span>
+                <span class="grow"><span class="t-strong">{{ a.laptop }}</span><span class="t-mute sm">{{ a.lockedGoal }}</span></span>
+                <span class="t-num">{{ m(1680000, 'COP') }}</span>
+              </div>
+            </div>
+          </div>
+          <nav class="tabbar">
+            <span class="on"><app-icon name="house" size="1.4em" />{{ a.tabs[0] }}</span>
+            <span><app-icon name="send" size="1.4em" />{{ a.tabs[1] }}</span>
+            <span><app-icon name="wallet" size="1.4em" />{{ a.tabs[2] }}</span>
+            <span><app-icon name="user" size="1.4em" />{{ a.tabs[3] }}</span>
+          </nav>
+        </div>
+      }
+
+      <!-- ============ REGLAS DEL ENVÍO ============ -->
+      @case ('rule') {
+        <div class="app">
+          <div class="app-body">
+            <div class="topbar"><app-icon name="back" size="1.5em" (click)="go('home')" /><span class="t-strong">{{ a.newTransfer }}</span><span class="w15"></span></div>
+            <div class="to">
+              <span class="t-mute sm">{{ a.to }}</span>
+              <div class="row gap6"><span class="avatar sm">R</span><span class="t-strong">{{ a.mom }}</span></div>
+            </div>
+            <div class="amount">
+              <span class="t-mute sm">{{ a.youSend }}</span>
+              <span class="t-xxl">{{ m(500, 'USD') }}</span>
+            </div>
+            <div class="splitbar"><i style="flex:250"></i><i style="flex:150"></i><i style="flex:100"></i></div>
+            <span class="t-strong mb1 d-block">{{ a.splitTitle }}</span>
+            <div class="list">
+              <div class="item">
+                <span class="ic-box" data-tone="blue"><app-icon name="house" size="1.3em" /></span>
+                <span class="grow"><span class="t-strong">{{ a.rent }}</span><span class="chip"><app-icon name="lock" size="1em" />{{ a.ruleTo }}: {{ a.landlord }}</span></span>
+                <span class="t-num">{{ m(250, 'USD') }}</span>
+              </div>
+              <div class="item">
+                <span class="ic-box" data-tone="orange"><app-icon name="cart" size="1.3em" /></span>
+                <span class="grow"><span class="t-strong">{{ a.groceries }}</span><span class="chip"><app-icon name="lock" size="1em" />{{ a.ruleAt }}: {{ a.supermarkets }}</span></span>
+                <span class="t-num">{{ m(150, 'USD') }}</span>
+              </div>
+              <div class="item">
+                <span class="ic-box" data-tone="purple"><app-icon name="school" size="1.3em" /></span>
+                <span class="grow"><span class="t-strong">{{ a.school }}</span><span class="chip"><app-icon name="lock" size="1em" />{{ a.ruleFor }}: {{ a.tuition }}</span></span>
+                <span class="t-num">{{ m(100, 'USD') }}</span>
+              </div>
+            </div>
+            <div class="addpart"><app-icon name="plus" size="1.2em" />{{ a.addPart }}</div>
+          </div>
+          <div class="app-foot"><button type="button" class="ab-primary" (click)="go('send')">{{ a.continue }}</button></div>
+        </div>
+      }
+
+      <!-- ============ REVISAR Y ENVIAR ============ -->
+      @case ('send') {
+        <div class="app">
+          <div class="app-body">
+            <div class="topbar"><app-icon name="back" size="1.5em" (click)="go('rule')" /><span class="t-strong">{{ a.review }}</span><span class="w15"></span></div>
+            <div class="flow">
+              <div class="flow-row"><span class="t-mute sm">{{ a.youSend }}</span><span class="t-xl">{{ m(500, 'USD') }}</span></div>
+              <div class="flow-arrow"><app-icon name="arrowdown" size="1.2em" /></div>
+              <div class="flow-row"><span class="t-mute sm">{{ a.momReceives }}</span><span class="t-xl">{{ m(1950000, 'COP') }}</span></div>
+            </div>
+            <div class="card kv">
+              <div><span class="t-mute">{{ a.rate }}</span><span>1 USD = {{ m(3900, 'COP') }}</span></div>
+              <div><span class="t-mute">{{ a.wiroFee }}</span><span>{{ m(5, 'USD') }}</span></div>
+              <div><span class="t-mute">{{ a.typicalFee }}</span><span class="strike">{{ m(30, 'USD') }}+</span></div>
+              <div><span class="t-mute">{{ a.arrives }}</span><span class="row gap4"><app-icon name="bolt" size="1em" />{{ a.seconds }}</span></div>
+            </div>
+            <div class="card rules-note">
+              <app-icon name="shield" size="1.4em" />
+              <span class="grow"><span class="t-strong">{{ a.rulesIncluded }}</span>
+                <span class="t-mute sm">{{ a.rent }} · {{ a.groceries }} · {{ a.school }}</span></span>
+            </div>
+          </div>
+          <div class="app-foot"><button type="button" class="ab-primary" (click)="go('received')">{{ a.sendWithRules }}</button></div>
+        </div>
+      }
+
+      <!-- ============ RECIBIDO (CELULAR DE LA MAMÁ) ============ -->
+      @case ('received') {
+        <div class="app">
+          <div class="app-body">
+            <div class="received-head">
+              <span class="ok-ring"><app-icon name="check" size="1.8em" [stroke]="2" /></span>
+              <span class="t-mute">{{ a.sentBy }}</span>
+              <span class="t-xxl">{{ m(1950000, 'COP') }}</span>
+              <span class="pill"><app-icon name="bolt" size="1em" />{{ a.arrivedIn }}</span>
+            </div>
+            <div class="list">
+              <div class="item">
+                <span class="ic-box" data-tone="blue"><app-icon name="house" size="1.3em" /></span>
+                <span class="grow"><span class="t-strong">{{ a.rent }}</span><span class="t-mute sm">{{ a.willPayLandlord }}</span></span>
+                <span class="t-num">{{ m(975000, 'COP') }}</span>
+              </div>
+              <div class="item">
+                <span class="ic-box" data-tone="orange"><app-icon name="cart" size="1.3em" /></span>
+                <span class="grow"><span class="t-strong">{{ a.groceries }}</span><span class="t-mute sm">{{ a.useSupermarket }}</span></span>
+                <span class="t-num">{{ m(585000, 'COP') }}</span>
+              </div>
+              <div class="item">
+                <span class="ic-box" data-tone="purple"><app-icon name="school" size="1.3em" /></span>
+                <span class="grow"><span class="t-strong">{{ a.school }}</span><span class="t-mute sm">{{ a.goesTuition }}</span></span>
+                <span class="t-num">{{ m(390000, 'COP') }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="app-foot"><button type="button" class="ab-ghost" (click)="go('declined')"><app-icon name="store" size="1.1em" />{{ a.payAtStore }}</button></div>
+        </div>
+      }
+
+      <!-- ============ REGLA EN ACCIÓN ============ -->
+      @case ('declined') {
+        <div class="app">
+          <div class="app-body">
+            <div class="topbar"><app-icon name="back" size="1.5em" (click)="go('received')" /><span class="t-strong">{{ a.payment }}</span><span class="w15"></span></div>
+            <div class="declined-card">
+              <span class="no-ring"><app-icon name="ban" size="1.9em" /></span>
+              <span class="t-lg">{{ a.declined }}</span>
+              <span class="t-mute center">{{ a.declinedWhy }}</span>
+              <div class="kv full">
+                <div><span class="t-mute">{{ a.electronics }}</span><span>{{ m(450000, 'COP') }}</span></div>
+                <div><span class="t-mute">{{ a.fromPocket }}</span><span class="row gap4"><app-icon name="cart" size="1em" />{{ a.groceries }}</span></div>
+              </div>
+            </div>
+            <span class="t-strong mb1 d-block">{{ a.recent }}</span>
+            <div class="list">
+              <div class="item">
+                <span class="ic-box" data-tone="orange"><app-icon name="store" size="1.3em" /></span>
+                <span class="grow"><span class="t-strong">{{ a.supermarket }}</span><span class="t-mute sm row gap4"><app-icon name="check" size="1em" />{{ a.approved }}</span></span>
+                <span class="t-num">{{ m(86400, 'COP') }}</span>
+              </div>
+              <div class="item">
+                <span class="ic-box" data-tone="blue"><app-icon name="house" size="1.3em" /></span>
+                <span class="grow"><span class="t-strong">{{ a.rent }}</span><span class="t-mute sm row gap4"><app-icon name="check" size="1em" />{{ a.approved }}</span></span>
+                <span class="t-num">{{ m(975000, 'COP') }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- ============ BOLSILLOS ============ -->
+      @case ('pockets') {
+        <div class="app">
+          <div class="app-body">
+            <div class="topbar"><app-icon name="back" size="1.5em" (click)="go('home')" /><span class="t-strong">{{ a.pocketsTitle }}</span><app-icon name="plus" size="1.5em" /></div>
+            <div class="pockets">
+              @for (p of [
+                { ic: 'house', t: 'blue', name: a.rent, rule: a.onlyLandlord, have: 1200000, of: 1200000 },
+                { ic: 'cart', t: 'orange', name: a.groceries, rule: a.onlySupermarkets, have: 420000, of: 600000 },
+                { ic: 'bus', t: 'purple', name: a.transport, rule: a.onlyTransport, have: 95000, of: 150000 },
+                { ic: 'lock', t: 'pink', name: a.laptop, rule: a.lockedGoal, have: 1680000, of: 2400000 }
+              ]; track p.name) {
+                <div class="pocket" [attr.data-tone]="p.t">
+                  <div class="row between">
+                    <span class="row gap8"><span class="ic-box" [attr.data-tone]="p.t"><app-icon [name]="p.ic" size="1.3em" /></span><span class="t-strong">{{ p.name }}</span></span>
+                    <span class="t-num">{{ m(p.have, 'COP') }}</span>
+                  </div>
+                  <div class="bar"><i [style.width.%]="(p.have / p.of) * 100"></i></div>
+                  <div class="row between"><span class="t-mute sm">{{ p.rule }}</span><span class="t-mute sm">{{ a.of }} {{ m(p.of, 'COP') }}</span></div>
+                </div>
+              }
+            </div>
+          </div>
+          <div class="app-foot"><button type="button" class="ab-ghost"><app-icon name="plus" size="1.1em" />{{ a.newPocket }}</button></div>
+        </div>
+      }
+
+      <!-- ============ META DE AHORRO ============ -->
+      @case ('goal') {
+        <div class="app">
+          <div class="app-body">
+            <div class="topbar"><app-icon name="back" size="1.5em" (click)="go('home')" /><span class="t-strong">{{ a.goalTitle }}</span><span class="w15"></span></div>
+            <div class="goal">
+              <div class="ring" style="--p: 70">
+                <div class="ring-in">
+                  <app-icon name="lock" size="1.6em" />
+                  <span class="t-xl">70%</span>
+                  <span class="t-mute sm">{{ a.locked }}</span>
+                </div>
+              </div>
+              <span class="t-lg">{{ a.laptop }}</span>
+              <span class="t-mute center">{{ m(1680000, 'COP') }} {{ a.of }} {{ m(2400000, 'COP') }}</span>
+            </div>
+            <div class="card rules-note">
+              <app-icon name="unlock" size="1.4em" />
+              <span class="grow"><span class="t-mute sm">{{ a.unlocksAt }}</span><span class="t-strong">{{ m(2400000, 'COP') }}</span></span>
+            </div>
+            <div class="card rules-note">
+              <app-icon name="repeat" size="1.4em" />
+              <span class="grow"><span class="t-strong">{{ a.autoSave }}</span><span class="t-mute sm">{{ a.autoSaveRule }}</span></span>
+            </div>
+          </div>
+          <div class="app-foot"><button type="button" class="ab-primary">{{ a.addMoney }}</button></div>
+        </div>
+      }
+
+      <!-- ============ PAGO CONTRA ENTREGA ============ -->
+      @case ('escrow') {
+        <div class="app">
+          <div class="app-body">
+            <div class="topbar"><app-icon name="back" size="1.5em" (click)="go('home')" /><span class="t-strong">{{ a.escrowTitle }}</span><span class="w15"></span></div>
+            <div class="product">
+              <span class="ic-box lg" data-tone="orange"><app-icon name="bag" size="1.8em" /></span>
+              <span class="grow"><span class="t-strong">{{ a.shoes }}</span><span class="t-mute sm">{{ a.onlineStore }}</span></span>
+              <span class="t-num">{{ m(289000, 'COP') }}</span>
+            </div>
+            <div class="pill wide"><app-icon name="shield" size="1em" />{{ released() ? a.releasedMsg : a.heldByWiro }}</div>
+            <ol class="timeline">
+              <li class="done"><span class="dot"><app-icon name="check" size="0.9em" [stroke]="2.4" /></span><span class="grow">{{ a.stepPaid }}</span><span class="t-mute sm">12/11</span></li>
+              <li class="done"><span class="dot"><app-icon name="check" size="0.9em" [stroke]="2.4" /></span><span class="grow">{{ a.stepShipped }}</span><span class="t-mute sm">13/11</span></li>
+              <li [class.done]="released()" [class.now]="!released()"><span class="dot">@if (released()) {<app-icon name="check" size="0.9em" [stroke]="2.4" />} @else {<app-icon name="truck" size="0.9em" />}</span><span class="grow">{{ a.stepDelivered }}</span><span class="t-mute sm">{{ released() ? '15/11' : '' }}</span></li>
+              <li [class.done]="released()"><span class="dot">@if (released()) {<app-icon name="check" size="0.9em" [stroke]="2.4" />}</span><span class="grow">{{ a.stepReleased }}</span><span class="t-mute sm">{{ released() ? '15/11' : '' }}</span></li>
+            </ol>
+          </div>
+          <div class="app-foot">
+            @if (!released()) {
+              <button type="button" class="ab-primary" (click)="released.set(true)">{{ a.received }}</button>
+            } @else {
+              <button type="button" class="ab-ghost" (click)="released.set(false)"><app-icon name="check" size="1.1em" />{{ a.releasedMsg }}</button>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- ============ PAGOS PROGRAMADOS ============ -->
+      @case ('scheduled') {
+        <div class="app">
+          <div class="app-body">
+            <div class="topbar"><app-icon name="back" size="1.5em" (click)="go('home')" /><span class="t-strong">{{ a.scheduledTitle }}</span><app-icon name="plus" size="1.5em" /></div>
+            <div class="card next">
+              <span class="t-mute sm">{{ a.next }} · {{ a.inDays }}</span>
+              <span class="t-lg">{{ a.rent }}</span>
+              <span class="t-xl">{{ m(1200000, 'COP') }}</span>
+              <span class="chip"><app-icon name="lock" size="1em" />{{ a.onlyLandlord }}</span>
+            </div>
+            <div class="list">
+              @for (p of [
+                { ic: 'house', t: 'blue', name: a.rent, d: 1, v: 1200000, x: '' },
+                { ic: 'wifi', t: 'purple', name: a.internet, d: 5, v: 95000, x: '' },
+                { ic: 'phone', t: 'pink', name: a.phone, d: 10, v: 55000, x: '' },
+                { ic: 'bike', t: 'orange', name: a.bike, d: 15, v: 380000, x: a.installment }
+              ]; track p.name) {
+                <div class="item">
+                  <span class="cal" [attr.data-tone]="p.t"><b>{{ p.d }}</b><span>{{ a.day }}</span></span>
+                  <span class="grow"><span class="t-strong">{{ p.name }}</span><span class="t-mute sm row gap4"><app-icon name="repeat" size="1em" />{{ p.x || (a.day + ' ' + p.d) }}</span></span>
+                  <span class="t-num">{{ m(p.v, 'COP') }}</span>
+                </div>
+              }
+            </div>
+            <div class="row between mt1"><span class="t-mute">{{ a.monthTotal }}</span><span class="t-strong">{{ m(1730000, 'COP') }}</span></div>
+          </div>
+        </div>
+      }
+    }
+    <span class="ph-home"></span>
+  </div>
+</div>

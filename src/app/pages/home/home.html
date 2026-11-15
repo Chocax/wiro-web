@@ -1,0 +1,116 @@
+@let c = l.c();
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="aurora hero-aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy" reveal>
+      <span class="brand-chip"><span class="brand-mark">W</span>{{ c.hero.eyebrow }}</span>
+      <h1 class="display">{{ c.hero.title }}</h1>
+      <p class="lead">{{ c.hero.sub }}</p>
+      <div class="hero-cta">
+        <a class="btn btn-buy" routerLink="/campaign">{{ c.hero.back }}</a>
+        <button type="button" class="btn btn-ghost" (click)="toVideo()"><app-icon name="play" size="14" />{{ c.hero.watch }}</button>
+      </div>
+    </div>
+    <div class="hero-phones" reveal>
+      <app-phone class="hp-back" [static]="true" screen="send" />
+      <app-phone class="hp-front" [static]="true" screen="received" />
+    </div>
+  </div>
+  <div class="glass-bar">
+    <span class="glass-label">{{ c.hero.glassLabel }}</span>
+    <span class="glass-sep"></span>
+    <span>{{ c.hero.glassGoal }} {{ l.money(site.goalUsd, 'USD') }}</span>
+    <a class="btn btn-buy btn-sm" routerLink="/campaign">{{ c.nav.back }}</a>
+  </div>
+</section>
+
+<!-- ================= VIDEO ================= -->
+<section class="section" id="video">
+  <div class="wrap">
+    <div class="sec-head split" reveal>
+      <h2 class="h-sm">{{ c.video.title }}</h2>
+      <a class="link" routerLink="/how-it-works">{{ c.nav.how }} <app-icon name="chevron" size="14" /></a>
+    </div>
+    <div class="video" reveal>
+      @if (videoUrl(); as url) {
+        <iframe [src]="url" title="Wiro" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      } @else {
+        <div class="video-pending">
+          <span class="video-play"><app-icon name="play" size="28" /></span>
+          <span class="video-title">{{ c.video.pending }}</span>
+          <span class="muted">{{ c.video.pendingSub }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROBLEMA ================= -->
+<section class="section light">
+  <div class="wrap">
+    <div class="narrow" reveal>
+      <span class="eyebrow">{{ c.problem.eyebrow }}</span>
+      <h2 class="h-lg">{{ c.problem.title }}</h2>
+      <p class="body-lg">{{ c.problem.body }}</p>
+    </div>
+    <div class="stats">
+      @for (s of c.problem.stats; track s.value; let i = $index) {
+        <div class="stat" [attr.data-tone]="['blue', 'pink', 'orange'][i]" reveal>
+          <span class="stat-v grad-text">{{ s.value }}</span>
+          <span class="stat-l">{{ s.label }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ================= IDEA ================= -->
+<section class="section idea">
+  <div class="aurora idea-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap narrow center" reveal>
+    <span class="eyebrow tone-text">{{ c.idea.eyebrow }}</span>
+    <h2 class="display-2">{{ c.idea.title }}</h2>
+    <p class="body-lg muted-2">{{ c.idea.body }}</p>
+    <div class="badge-row">
+      <span class="rule-tag" data-tone="blue"><span class="tone-dot"><app-icon name="house" size="14" /></span>{{ c.app.rent }}<app-icon name="chevron" size="14" />{{ c.app.landlord }}</span>
+      <span class="rule-tag" data-tone="orange"><span class="tone-dot"><app-icon name="cart" size="14" /></span>{{ c.app.groceries }}<app-icon name="chevron" size="14" />{{ c.app.supermarkets }}</span>
+      <span class="rule-tag" data-tone="purple"><span class="tone-dot"><app-icon name="school" size="14" /></span>{{ c.app.school }}<app-icon name="chevron" size="14" />{{ c.app.tuition }}</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPLORA ================= -->
+<section class="section explore-sec">
+  <div class="wrap">
+    <div class="sec-head" reveal>
+      <span class="eyebrow">{{ c.explore.eyebrow }}</span>
+      <h2 class="h-lg mw-l">{{ c.explore.title }}</h2>
+    </div>
+    <div class="explore">
+      @for (x of c.explore.cards; track x.route; let i = $index) {
+        <a class="explore-card" [routerLink]="x.route" [attr.data-tone]="tones[i]" reveal>
+          <span class="tone-tile"><app-icon [name]="x.icon" size="22" /></span>
+          <span class="explore-t">{{ x.title }}</span>
+          <span class="explore-b">{{ x.body }}</span>
+          <span class="explore-go"><app-icon name="chevron" size="18" [stroke]="2" /></span>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="section tight">
+  <div class="wrap">
+    <div class="cta-band" reveal>
+      <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="cta-in">
+        <h2 class="h-sm">{{ c.explore.ctaTitle }}</h2>
+        <p>{{ c.explore.ctaBody }}</p>
+      </div>
+      <a class="btn btn-buy" routerLink="/campaign">{{ c.nav.back }}</a>
+    </div>
+  </div>
+</section>
