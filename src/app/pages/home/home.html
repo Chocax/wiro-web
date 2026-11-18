@@ -36,6 +36,8 @@
     <div class="video" reveal>
       @if (videoUrl(); as url) {
         <iframe [src]="url" title="Wiro" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      } @else if (site.videoFile) {
+        <video [src]="site.videoFile" [poster]="site.videoPoster" controls playsinline preload="metadata" title="Wiro"></video>
       } @else {
         <div class="video-pending">
           <span class="video-play"><app-icon name="play" size="28" /></span>
@@ -58,7 +60,7 @@
     <div class="stats">
       @for (s of c.problem.stats; track s.value; let i = $index) {
         <div class="stat" [attr.data-tone]="['blue', 'pink', 'orange'][i]" reveal>
-          <span class="stat-v grad-text">{{ s.value }}</span>
+          <span class="stat-v grad-text" [style.--len]="s.value.length">{{ s.value }}</span>
           <span class="stat-l">{{ s.label }}</span>
         </div>
       }
