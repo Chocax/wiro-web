@@ -118,8 +118,7 @@ A bilingual site with seven pages and interactive app mockups built in plain HTM
 
 | | |
 | --- | --- |
-| Nicolás Espinosa Estrada | Hernando Javier García Mogollón |
-| David Felipe Millán Castañeda | Santiago Pinzón Vásquez |
+| Santiago Pinzón Vásquez | 
 
 <br />
 
